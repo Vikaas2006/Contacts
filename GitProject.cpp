@@ -31,6 +31,7 @@ Contact* insert(Contact* root,string name,string number,string address,string em
     else if(name>root->name){
         root->right=insert(root->right,name,number,address,email);
     }
+    return root;
 }
 Contact* search(Contact* root,string name){
     if(root==NULL){
@@ -60,10 +61,10 @@ int main(){
     root=insert(root,"Mahesh","8701342678","Himayath Nagar","mahesh@gmail.com");
     root=insert(root,"Tarak","8379257836","Uppal","tarak@gmail.com");
     root=insert(root,"Arjun","8674569874","Kukatpally","arjun@gmail.com");
-    root=insert(root,"prabhas","8764589864","prabhas@gmail.com","Secundrabad");
+    root=insert(root,"prabhas","8764589864","Secunderabad","prabhas@gmail.com");
     string searchC;
     display(root);
-    cout<<"enter the contact to be searched:\n";
+    cout<<"enter the contact to be searched:";
     cin>>searchC;
     Contact* find=search(root,searchC);
     if(find==NULL){
@@ -73,6 +74,4 @@ int main(){
         cout<<"the contact found details are:\n";
         display(find);
     }
-    
-
 }
