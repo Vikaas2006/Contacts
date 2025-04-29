@@ -55,6 +55,7 @@ void display(Contact* root){
     cout<<"number:"<<root->number<<endl;
     cout<<"email:"<<root->email<<endl;
     cout<<"address:"<<root->address<<endl;
+    cout<<"JAI BABU\n";
 }
 int main(){
     Contact* root=NULL;
