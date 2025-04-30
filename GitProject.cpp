@@ -57,8 +57,9 @@ void display(Contact* root){
     cout<<"address:"<<root->address<<endl;
     cout<<"JAI BABU\n";
     cout<<"jai jai babu";
-}
+
 int main(){
+    cout<<"Karthik/n";
     Contact* root=NULL;
     root=insert(root,"Mahesh","8701342678","Himayath Nagar","mahesh@gmail.com");
     root=insert(root,"Tarak","8379257836","Uppal","tarak@gmail.com");
