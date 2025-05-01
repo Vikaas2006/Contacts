@@ -146,7 +146,7 @@ void ContactLog::addContact(){
     cout<<"contact added successfully\n";
 }
 
-Contact* insert(Contact* root,string name,string number,string address,string email){
+Contact* ContactLog::insert(Contact* root,string name,string number,string address,string email){
     if(root==NULL){
         return new Contact(name,number,address,email);
     }
@@ -159,7 +159,7 @@ Contact* insert(Contact* root,string name,string number,string address,string em
     return root;
 }
 
-Contact* searchContact(Contact* root,string name){
+Contact* ContactLog::searchContact(Contact* root,string name){
     if(root==NULL){
         return NULL;
     }
