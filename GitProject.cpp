@@ -39,7 +39,7 @@ class ContactLog{
             root=NULL;
         }
         void inorder(Contact* node);
-        Contact* deleteNode(Contact* node, string& name);
+        Contact* deleteNode(Contact* node,const string& name);
         void search();
         void viewContacts();
         void display();
@@ -88,7 +88,7 @@ void ContactLog::inorder(Contact* node){
     node->display();
     inorder(node->right);
 }
-Contact* ContactLog::deleteNode(Contact* node,string& name){
+Contact* ContactLog::deleteNode(Contact* node,const string& name){
     if(node==NULL){
         return NULL;
     }
