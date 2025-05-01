@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 using namespace std;
+class ContactLog;
 class Contact{
     public:
         string number;
@@ -17,10 +18,134 @@ class Contact{
             left=NULL;
             right=NULL;
         }
+        friend class ContactLog;   
         Contact(){
             left=right=NULL;
         }
+        void display(){
+            cout<<" Name:  "<<name<<"\n";
+            cout<<"number: "<<number<<"\n";
+            cout<<"email "<<email<<"\n";
+            cout<<"address "<<address<<"\n";
+        }
 };
+
+class ContactLog{
+    public:
+        Contact* root;
+        Contact* insert(Contact* root,string name,string number,string address,string email);
+        void addContact();
+        ContactLog(){
+            root=NULL;
+        }
+        void inorder(Contact* node);
+        Contact* deleteNode(Contact* node, string& name);
+        void search();
+        void viewContacts();
+        void display();
+        Contact* searchContact(Contact* root,string name);
+        void deleteContact();
+
+};
+void ContactLog::deleteContact(){
+    string name;
+    cout<<"enter the name to delete:\n";
+    cin>>name;
+    if(searchContact(root,name)==NULL){
+        cout<<"Contact not found\n";
+        return;
+    }
+    root=deleteNode(root,name);
+    cout<<"contact deleted\n";
+}
+void ContactLog::viewContacts(){
+    if(root==NULL){
+        cout<<"no contacts availabel\n";
+        return;
+    }
+    cout<<"all contacts\n";
+    inorder(root);
+}
+void ContactLog::search(){
+    string name;
+    cout<<"enter name to search:\n";
+    cin>>name;
+    Contact* result=searchContact(root,name);
+    if(result==NULL){
+        cout<<"no contact found with that name\n";
+    }
+    else{
+        cout<<"Contact found:\n";
+        result->display();
+    }
+}
+
+void ContactLog::inorder(Contact* node){
+    if(node==NULL){
+        return;
+    }
+    inorder(node->left);
+    node->display();
+    inorder(node->right);
+}
+Contact* ContactLog::deleteNode(Contact* node,string& name){
+    if(node==NULL){
+        return NULL;
+    }
+    if(name<node->name){
+        node->left=deleteNode(node->left,name);
+    }
+    else if(name> node->name){
+        node->right=deleteNode(node->right,name);
+    }
+    else{
+        if(node->left==NULL && node->right==NULL){
+            delete node;
+            return NULL;
+        }
+        else if(node->left==NULL){
+            Contact* temp=node->right;
+            delete node;
+            return temp;
+        }
+        else if(node->right==NULL){
+            Contact* temp=node->left;
+            delete node;
+            return temp;
+        }
+        else{
+            Contact* successor=node->right;
+            while(successor->left){
+                successor=successor->left;
+            }
+            node->name=successor->name;
+            node->number=successor->number;
+            node->address=successor->address;
+            node->email=successor->email;
+            node->right=deleteNode(node->right,successor->name);
+
+        }
+    }
+    return node;
+}
+void ContactLog::addContact(){
+    string name,number,address,email;
+    cout<<"enter name:";
+    cin>>name;
+    cout<<"\n";
+    cout<<"enter phone:";
+    cin>>number;
+    cout<<"\n";
+    cout<<"enter email:";
+    cin>>email;
+    cout<<"\n";
+    cout<<"enter address:";
+    cin>>address;
+    cout<<"\n";
+    root=insert(root,name,number,address,email);
+    cout<<"contact added successfully\n";
+}
+
 Contact* insert(Contact* root,string name,string number,string address,string email){
     if(root==NULL){
         return new Contact(name,number,address,email);
@@ -33,7 +158,8 @@ Contact* insert(Contact* root,string name,string number,string address,string em
     }
     return root;
 }
-Contact* search(Contact* root,string name){
+
+Contact* searchContact(Contact* root,string name){
     if(root==NULL){
         return NULL;
     }
@@ -41,39 +167,43 @@ Contact* search(Contact* root,string name){
         return root;
     }
     if(name<root->name){
-        return search(root->left,name);
+        return searchContact(root->left,name);
     }
     else{
-        return search(root->right,name);
+        return searchContact(root->right,name);
     }
 }
-void display(Contact* root){
-    if(root==NULL){
-        return ;
-    }
-    cout<<"name:"<<root->name<<endl;
-    cout<<"number:"<<root->number<<endl;
-    cout<<"email:"<<root->email<<endl;
-    cout<<"address:"<<root->address<<endl;
-    cout<<"JAI BABU\n";
-    cout<<"jai jai babu";
-}
+
 int main(){
-    Contact* root=NULL;
-    root=insert(root,"Mahesh","8701342678","Himayath Nagar","mahesh@gmail.com");
-    root=insert(root,"Tarak","8379257836","Uppal","tarak@gmail.com");
-    root=insert(root,"Arjun","8674569874","Kukatpally","arjun@gmail.com");
-    root=insert(root,"prabhas","8764589864","Secunderabad","prabhas@gmail.com");
-    string searchC;
-    display(root);
-    cout<<"enter the contact to be searched:";
-    cin>>searchC;
-    Contact* find=search(root,searchC);
-    if(find==NULL){
-        cout<<"the contact not found\n";
-    }
-    else{
-        cout<<"the contact found details are:\n";
-        display(find);
-    }
+    ContactLog log;
+    int choice;
+    do{
+        cout<<"menu for contacts : \n";
+        cout<<"1 Add Contact\n";
+        cout<<"2.View Contact\n";
+        cout<<"3.Search Contact\n";
+        cout<<"Delete Contact\n";
+        cout<<"5.Exit\n";
+        cin>>choice;
+        switch (choice){
+            case 1:
+            log.addContact();
+            break;
+            case 2:
+            log.viewContacts();
+            break;
+            case 3:
+            log.search();
+            break;
+            case 4:
+            log.deleteContact();
+            break;
+            case 5:
+            cout<<"exiting\n";
+            break;
+            default:
+            cout<<"invalid choice\n";
+        }
+}while (choice!=5);
+
 }
