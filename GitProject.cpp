@@ -182,7 +182,7 @@ int main(){
         cout<<"1 Add Contact\n";
         cout<<"2.View Contact\n";
         cout<<"3.Search Contact\n";
-        cout<<"Delete Contact\n";
+        cout<<"4.Delete Contact\n";
         cout<<"5.Exit\n";
         cin>>choice;
         switch (choice){
