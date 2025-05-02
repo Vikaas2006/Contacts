@@ -180,29 +180,30 @@ int main(){
     do{
         cout<<"menu for contacts : \n";
         cout<<"1 Add Contact\n";
-        cout<<"2.View Contact\n";
+        cout<<"2.View Contacts\n";
         cout<<"3.Search Contact\n";
         cout<<"4.Delete Contact\n";
         cout<<"5.Exit\n";
         cin>>choice;
         switch (choice){
             case 1:
-            log.addContact();
-            break;
+                log.addContact();
+                
+                break;
             case 2:
-            log.viewContacts();
-            break;
+                log.viewContacts();
+                break;
             case 3:
-            log.search();
-            break;
+                log.search();
+                break;
             case 4:
-            log.deleteContact();
-            break;
+                log.deleteContact();
+                break;
             case 5:
-            cout<<"exiting\n";
-            break;
+                cout<<"exiting\n";
+                break;
             default:
-            cout<<"invalid choice\n";
+                cout<<"invalid choice\n";
         }
 }while (choice!=5);
 
