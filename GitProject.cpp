@@ -128,7 +128,7 @@ Contact* ContactLog::deleteNode(Contact* node,const string& name){
     }
     return node;
 }
-void ContactLog::addContact(){
+void ContactLog::addContact(){ 
     string name,number,address,email;
     cout<<"enter name:";
     cin>>name;
